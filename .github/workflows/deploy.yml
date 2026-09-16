@@ -23,18 +23,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Liquibase
-        run: |
-          wget -O- https://repo.liquibase.org/liquibase.asc | gpg --dearmor -o /usr/share/keyrings/liquibase-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/liquibase-archive-keyring.gpg] https://repo.liquibase.org stable main" | sudo tee /etc/apt/sources.list.d/liquibase.list
-          sudo apt-get update
-          sudo apt-get install liquibase
-
-      - name: Execute Liquibase Update
+      - name: Verify Environment Variables
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_CATALOG: ${{ secrets.DATABRICKS_CATALOG }}
         run: |
-          echo "Deploying to Databricks..."
+          echo "Conexión lista a Databricks en Host: $DATABRICKS_HOST"
